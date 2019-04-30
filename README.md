@@ -7,37 +7,33 @@ The aim of this tutorial series, is to help you build a picture of how one could
 
 In this tutorial we will :
 
-- Add Transactions to block. Digitally Sign the transactions.
-
-- Ownership of value through Accounts.
+- Block Rewards
+- Gas fee
+-  Coinbase Transactions
 
   
-  
+## - Block Rewards
 
-## - Add Transactions to block. Digitally Sign the transactions.
-
-#### Q. In a P2P network how to transfer value? 
+#### Q. In a P2P network how are new DummyCoins Generated or mined?
 **Solution -** 
- - Add Transactions to block.
- - Each Transaction will have from, to, value.
+ - Every mined block will have a block reward which is added as part of coinbase transaction.
+ - This block reward is nothing but new Dummy Coins.
+ - This block reward keep changing over a time period.
 
-#### Q. How to ensure the transaction propagated in the network is not tampered by Peers?
+
+
+## - Transaction fee
+- Transaction fee is determined by the gas * price per unit of gas.
+
+
+
+## - Coinbase Transactions
+
+#### Q. In a P2P network how are miners incentivised for processing the blocks?
 **Solution -** 
- - Sender can Digitally Sign the transaction. 
- - Miners validate Digital Signature of transaction.
+ - Miners will add one extra transactions to the top of transactions list in the mined block.
+ - This Transaction is called coinbase transaction.
+ - This transaction will have to address as miner address.
+ - This transaction will have from address and digital signature of ??.
+ - This transaction will have value which is sum of block reward + sum of all transaction fees.
 
-
-## - Ownership of value through Accounts.
-
-#### Q. In a P2P network how to prove the ownership of DummyCoin?
-**Solution -** 
- - Manage all the user accounts in a block.
- - Add User Accounts to the block header.
- - User Accounts is part of the hash now. So tampering of User Accounts will lead to hash change which leads to breakage of links between blocks.
-
-
-#### Q. How are Initial DummyCoins Generated and Added to the owner?
-**Solution -** 
- - Create a Transaction with hardcoded values.
- - Add this Genesis Transaction to Genesis block. No Transaction validation  happens.
- - Genesis block is processed and initial account is populated with Dummy coins.  
