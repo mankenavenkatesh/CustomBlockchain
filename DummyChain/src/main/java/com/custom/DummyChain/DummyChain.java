@@ -19,15 +19,15 @@ public class DummyChain
     {
         // add blocks to our blockchain
         System.out.println("Trying to Mine block 1... ");        
-        addBlock(new Block("Hi..i am first block", "0"));
+        addBlock(new Block("0"));
         
         
         System.out.println("Trying to Mine block 2... ");
-        addBlock(new Block("Hi...i am 2nd block", blockchain.get(blockchain.size()-1).hash));
+        addBlock(new Block(blockchain.get(blockchain.size()-1).hash));
         
         
         System.out.println("Trying to Mine block 3... ");
-        addBlock(new Block("Hi...i am 3rd block", blockchain.get(blockchain.size()-1).hash));
+        addBlock(new Block(blockchain.get(blockchain.size()-1).hash));
         
 		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);		
 		System.out.println(blockchainJson);

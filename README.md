@@ -35,3 +35,8 @@ In this tutorial we will :
  - Add User Accounts to the block header.
  - User Accounts is part of the hash now. So tampering of User Accounts will lead to hash change which leads to breakage of links between blocks.
 
+
+#### Q. How are Initial DummyCoins Generated and Added to the owner?
+**Solution -** 
+ - Create a Genesis block with hardcoded values.
+
