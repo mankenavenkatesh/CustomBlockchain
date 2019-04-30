@@ -31,7 +31,7 @@ In this tutorial we will :
 
 #### Q. In a P2P network how to prove the ownership of DummyCoin?
 **Solution -** 
- - Manage all the user accounts in a Global(World) state.
- - Add Global State to the block header.
- - Global State is part of the hash now. So tampering of global state will lead to hash change which leads to breakage of links between blocks.
+ - Manage all the user accounts in a block.
+ - Add User Accounts to the block header.
+ - User Accounts is part of the hash now. So tampering of User Accounts will lead to hash change which leads to breakage of links between blocks.
 
