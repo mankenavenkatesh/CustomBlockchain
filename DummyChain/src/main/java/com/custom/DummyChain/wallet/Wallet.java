@@ -1,5 +1,6 @@
 package com.custom.DummyChain.wallet;
 
+import com.custom.DummyChain.DummyChain;
 import com.custom.DummyChain.trasaction.*;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
@@ -29,13 +30,20 @@ public class Wallet {
 		}
 	}
 	
+	 //returns balance of this account
+		public float getBalance() {
+			
+	        return DummyChain.blockchain.get(DummyChain.blockchain.size()-1).accounts.get(publicKey).value; 
+			
+		}
+		
+	
 	// Generates and returns a new transaction from this wallet.
 	public Transaction sendFunds(PublicKey _recipient,float value ) {
-//		if(getBalance() < value) { //gather balance and check funds.
-//			System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
-//			return null;
-//		}
-    
+		if(getBalance() < value) { //gather balance and check funds.
+			System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
+			return null;
+		}    
 		Transaction newTransaction = new Transaction(publicKey, _recipient , value);
 		newTransaction.generateSignature(privateKey);
 		return newTransaction;

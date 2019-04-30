@@ -16,12 +16,13 @@ public class Block {
 	public String hash;	
 	public Long timeStamp;
 	public int nonce;
-	public HashMap<PublicKey, Account> accounts;
-	public ArrayList<Transaction> transactions;
+	public HashMap<PublicKey, Account> accounts = new HashMap<PublicKey, Account>();
+	public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	
-	public Block( String prevBlockHash) {
+	public Block( String prevBlockHash, HashMap<PublicKey, Account> accounts) {
 		this.prevBlockHash = prevBlockHash;		
 		this.timeStamp = new Date().getTime();
+		this.accounts = accounts;
 		this.hash = calculateHash();
 	}
 	
@@ -39,11 +40,28 @@ public class Block {
 						System.out.println("Transaction failed to process. Discarded.");
 						return false;
 					}
+				}else {
+					if(processGenesisTransaction(transaction) != true) {
+						System.out.println("Transaction failed to process. Discarded.");
+						return false;
+					}					
 				}
 				transactions.add(transaction);
 				System.out.println("Transaction Successfully added to Block");
 				return true;
 	}
+	
+	
+	public boolean processGenesisTransaction(Transaction transaction) {
+		// Verify the signature
+		if(transaction.verifiySignature() == false) {
+			System.out.println("#Transaction Signature failed to verify");
+			return false;
+		}				
+		accounts.put(transaction.reciepient, new Account(transaction.value));
+		return true;		
+	}
+	
 	
 	public boolean processTransaction(Transaction transaction) {
 		// Verify the signature
@@ -70,12 +88,16 @@ public class Block {
 				return false;
 			}
 		accounts.get(from).value -= value;
-		accounts.get(to).value += value;
+		if(accounts.get(to) != null) {
+			accounts.get(to).value += value;
+		}else {
+			accounts.put(to, new Account(value));
+		}
 		return true;				
 	}
 	
 	
-	public float getBalance(PublicKey address) {
+	public float getBalance(PublicKey address) {		
 		return accounts.get(address).value;
 	}
 	
