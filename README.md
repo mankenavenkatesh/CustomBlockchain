@@ -18,8 +18,9 @@ In this tutorial we will :
 
 #### Q. In a P2P network how to transfer value? 
 **Solution -** 
- - Add Transactions to block.
+ - Create a transaction to transfer value.
  - Each Transaction will have from, to, value.
+ - Add Transactions to block.
 
 #### Q. How to ensure the transaction propagated in the network is not tampered by Peers?
 **Solution -** 
