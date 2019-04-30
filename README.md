@@ -38,5 +38,6 @@ In this tutorial we will :
 
 #### Q. How are Initial DummyCoins Generated and Added to the owner?
 **Solution -** 
- - Create a Genesis block with hardcoded values.
-
+ - Create a Transaction with hardcoded values.
+ - Add this Genesis Transaction to Genesis block. No Transaction validation  happens.
+ - Genesis block is processed and initial account is populated with Dummy coins.  
