@@ -18,14 +18,15 @@ In this tutorial we will :
 
 #### Q. In a P2P network how to ensure the data shared between peers is not tampered?
 **Solution -** 
- 1. Chunk the data into blocks and link blocks with each other through hashes.
- 2. Each block will have hash of previous block. 
- 3. So if a block is tampered, then all the consecutive blocks gets impacted as the consecutive block hashes has to be changed.
+ - Chunk the data into blocks and link blocks with each other through hashes.
+ - Each block will have hash of previous block. 
+ - So if a block is tampered, then all the consecutive blocks gets impacted as the consecutive block hashes has to be changed.
 
  **Example**
-Let's say some field inside block with block number 123 is modified, then the hash of block number 123 got changed.
-Now Block number 124 has to be modified since the prevHash field(hash of block number 123) got changed.
-Now Block Number 125 has to be modified since the prevHash field(hash of block number 124) got changed.
+
+ - Let's say some field inside block with block number 123 is modified, then the hash of block number 123 got changed.
+ - Now Block number 124 has to be modified since the prevHash field(hash of block number 123) got changed.
+ - Now Block Number 125 has to be modified since the prevHash field(hash of block number 124) got changed.
 From above solution, To modify one block, now peer has to modify all the consecutive blocks.
 
   
