@@ -32,13 +32,14 @@ In this tutorial we will :
 
 #### Q. In a P2P network how to prove the ownership of DummyCoin?
 **Solution -** 
+ - Create a Account for the user.
+ - Account maintains the ownership of DummyCoin.
  - Manage all the user accounts in a block.
- - Add User Accounts to the block header.
- - User Accounts is part of the hash now. So tampering of User Accounts will lead to hash change which leads to breakage of links between blocks.
+ - Add User Accounts as part of the block hash. So tampering of User Accounts will lead to hash change which leads to breakage of links between blocks.
 
 
 #### Q. How are Initial DummyCoins Generated and Added to the owner?
 **Solution -** 
- - Create a Transaction with hardcoded values.
+ - Create a Transaction with hardcoded values to transfer DummyCoins to initital account.
  - Add this Genesis Transaction to Genesis block. No Transaction validation  happens.
  - Genesis block is processed and initial account is populated with Dummy coins.  
