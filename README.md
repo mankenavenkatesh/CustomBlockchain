@@ -9,17 +9,16 @@ In this tutorial we will :
 
 - Block Rewards
 - Gas fee
-- Coinbase Transactions
+- Coinbase Account Transfer
 
   
 ## Block Rewards
 
 #### Q. In a P2P network how are new DummyCoins Generated or mined?
 **Solution -** 
- - Every mined block will have a block reward which is added as part of coinbase transaction.
+ - Every mined block will have a block reward which is added to coinbase Accont as part of block mining.
  - This block reward is nothing but new Dummy Coins.
  - This block reward keep changing over a time period based on block height.
- - This block reward goes to the miner as part of coinbase transactions.
 
 
 #### Q. what if miner simply reward themselves excess of the block reward and total transaction fee?
@@ -32,26 +31,11 @@ In this tutorial we will :
 - Transaction fee is determined by the gas used * price per unit of gas.
 
 
-## Coinbase Transactions
+## Coinbase Account Transfer
 
 #### Q. In a P2P network how are miners incentivised for processing the blocks?
 **Solution -** 
- - Miners will add one extra transactions to the top of transactions list in the block they are mining.
- - This Transaction is called coinbase transaction. Because, This transaction includes the new coins generated as block reward.
- - This transaction will have "to" address as miner address.
- - This transaction will have "from" address and digital signature of ??.
- - This transaction will have value which is sum of block reward + sum of all transaction fees.
-
-#### Q. What if miner spends the Dummycoins in coinbase transactions and later the block turns out to be stale block  after a fork in the blockchain.?
-
-**Solution -** 
-- Another important feature of a coinbase transaction is that DummyCoins involved in the transaction cannot be spent until they have received at least 100 block confirmations. 
-
-
-
-#### Q. Will genesis block contains coinbase transaction? 
-
-**Solution -** 
-- Yes.  
-
-
+ - when transaction is added to candidate block, transaction processor will process the transaction and transfer the transaction fee to the coinbase account stored as a field in the candidate block.
+ - Once all transactions are added to the block, block will be mined. 
+ - During mining proccess, block reward is added to the coinbase account. 
+- This is how miners get paid for the work done.

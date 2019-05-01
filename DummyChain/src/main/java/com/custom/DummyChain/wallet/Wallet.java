@@ -1,6 +1,7 @@
 package com.custom.DummyChain.wallet;
 
 import com.custom.DummyChain.DummyChain;
+import com.custom.DummyChain.Account.Account;
 import com.custom.DummyChain.trasaction.*;
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
@@ -32,7 +33,11 @@ public class Wallet {
 	
 	 //returns balance of this account
 		public float getBalance() {			
-	        return DummyChain.blockchain.get(DummyChain.blockchain.size()-1).accounts.get(publicKey).value; 			
+	        Account myAccount = DummyChain.blockchain.get(DummyChain.blockchain.size()-1).accounts.get(publicKey);
+	        if(myAccount==null) {
+	        	return 0;
+	        }
+	        return myAccount.value;	        		
 		}
 		
 	

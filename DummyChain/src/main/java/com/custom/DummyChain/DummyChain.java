@@ -22,6 +22,7 @@ public class DummyChain
 	public static Wallet walletA;
 	public static Wallet walletB;
 	public static Transaction genesisTransaction;
+	public static float blockReward = 50f;
 
 	
     public static void main( String[] args )
@@ -40,36 +41,43 @@ public class DummyChain
 
 
 		System.out.println("Creating and Mining Genesis block... ");
-		Block genesis = new Block("0", new HashMap<PublicKey, Account>());
+		Block genesis = new Block("0", new HashMap<PublicKey, Account>(), coinbase.publicKey);
 		genesis.addTransaction(genesisTransaction);
 		addBlock(genesis);        				
+		System.out.println("\nCoinbase's balance is: " + coinbase.getBalance());		
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
+		System.out.println("\nWalletB's balance is: " + walletB.getBalance());		
 
 		// copying accounts from previous block. Every block maintains accounts. This will be changed in later tutorials to world(global) state.
 		System.out.println("Creating and Mining block1... ");
-		Block block1 = new Block(genesis.hash, (HashMap<PublicKey, Account>) genesis.accounts.clone());
+		Block block1 = new Block(genesis.hash, (HashMap<PublicKey, Account>) genesis.accounts.clone(), coinbase.publicKey);
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
 		block1.addTransaction(walletA.sendFunds(walletB.publicKey, 40f));
 		addBlock(block1);
-		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-		System.out.println("WalletB's balance is: " + walletB.getBalance());
+		
+		System.out.println("\nCoinbase's balance is: " + coinbase.getBalance());		
+		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
+		System.out.println("\nWalletB's balance is: " + walletB.getBalance());	
 		
 		
 		System.out.println("Creating and Mining block2... ");
-		Block block2 = new Block(block1.hash, (HashMap<PublicKey, Account>) block1.accounts.clone());
+		Block block2 = new Block(block1.hash, (HashMap<PublicKey, Account>) block1.accounts.clone(), coinbase.publicKey);
 		System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
 		block2.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f));
-		addBlock(block2);
-		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-		System.out.println("WalletB's balance is: " + walletB.getBalance());
+		addBlock(block2);		
+		System.out.println("\nCoinbase's balance is: " + coinbase.getBalance());		
+		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
+		System.out.println("\nWalletB's balance is: " + walletB.getBalance());	
 		
 
 		System.out.println("Creating and Mining block3... ");
-		Block block3 = new Block(block2.hash, (HashMap<PublicKey, Account>) block2.accounts.clone());
+		Block block3 = new Block(block2.hash, (HashMap<PublicKey, Account>) block2.accounts.clone(), coinbase.publicKey);
 		System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
 		block3.addTransaction(walletB.sendFunds( walletA.publicKey, 20));
-		System.out.println("\nWalletA's balance is: " + walletA.getBalance());
-		System.out.println("WalletB's balance is: " + walletB.getBalance());
+		addBlock(block3);	
+		System.out.println("\nCoinbase's balance is: " + coinbase.getBalance());		
+		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
+		System.out.println("\nWalletB's balance is: " + walletB.getBalance());	
 		
         		
         System.out.println("Blockchain is valid - "+isChainValid());

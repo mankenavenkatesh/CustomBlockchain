@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import com.custom.DummyChain.util.StringUtil;
 import com.custom.DummyChain.Account.*;
+import com.custom.DummyChain.Calculator.BlockRewardCalculator;
+import com.custom.DummyChain.Calculator.TransactionFeeCalculator;
 import com.custom.DummyChain.trasaction.*;
 
 
@@ -18,18 +20,21 @@ public class Block {
 	public int nonce;
 	public HashMap<PublicKey, Account> accounts = new HashMap<PublicKey, Account>();
 	public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+	public PublicKey coinbase;
 	
-	public Block( String prevBlockHash, HashMap<PublicKey, Account> accounts) {
+	public Block( String prevBlockHash, HashMap<PublicKey, Account> accounts, PublicKey coinbase) {
 		this.prevBlockHash = prevBlockHash;		
 		this.timeStamp = new Date().getTime();
 		// copying accounts from previous block. Every block maintains accounts. This will be changed in later tutorials to world(global) state.
 		this.accounts = accounts;
+		this.coinbase = coinbase;
 		this.hash = calculateHash();
+		
 	}
 	
 	public String calculateHash() {
 		
-		String calculatedHash = StringUtil.applySHA256(prevBlockHash + Long.toString(timeStamp) + Integer.toString(nonce) + transactions.toString() + accounts.toString() );
+		String calculatedHash = StringUtil.applySHA256(prevBlockHash + Long.toString(timeStamp) + Integer.toString(nonce) + transactions.toString() + accounts.toString() + coinbase.toString());
 		return calculatedHash;
 	}
 	
@@ -71,6 +76,18 @@ public class Block {
 			return false;
 		}
 		
+		float transactionFee = TransactionFeeCalculator.calculateTransactionFee(transaction);
+		
+		//check if sender has funds to pay transaction fee
+		if(!(getBalance(transaction.sender) >= transactionFee)) {
+			System.out.println("Sender doesn't have enough funds to pay for transaction");
+			return false;
+		}
+		
+		// Transfer Transaction fee to the coinbase account		
+		transferFunds(transaction.sender,  coinbase, transactionFee);
+		
+				
 		//check if sender has funds to transfer
 		if(!(getBalance(transaction.sender) >= transaction.value)) {
 			System.out.println("Sender doesn't have enough funds to transfer");
@@ -88,21 +105,36 @@ public class Block {
 				System.out.println("Sender doesn't have enough funds to transfer");
 				return false;
 			}
-		accounts.get(from).value -= value;
-		if(accounts.get(to) != null) {
-			accounts.get(to).value += value;
-		}else {
-			accounts.put(to, new Account(value));
-		}
+		getOrCreate(from).value -= value;
+		getOrCreate(to).value += value;		
 		return true;				
-	}
+	}	
+	
+	public Account getOrCreate(PublicKey address) {
+		if(accounts.get(address) != null) {
+			return accounts.get(address);
+		}else {
+			accounts.put(address, new Account(0));
+			return accounts.get(address);
+		}
+	  }
 	
 	
 	public float getBalance(PublicKey address) {		
-		return accounts.get(address).value;
+		return getOrCreate(address).value;
 	}
 	
-	public void mineBlock(int difficulty) {		
+	public boolean rewardCoinBase() {
+		Account coinBaseAccount = getOrCreate(coinbase);
+		coinBaseAccount.value += BlockRewardCalculator.calculateBlockReward();
+		return true;
+	}
+	
+	public void mineBlock(int difficulty) {	
+		boolean rewardedSuccessfully = rewardCoinBase();
+		if(!rewardedSuccessfully) {
+			System.out.println("Block Rewarding is not successful. Mining Stopped");
+		}
 		String target = StringUtil.getDificultyString(difficulty); //Create a string with difficulty * "0" 
 		while(! hash.substring(0, difficulty).equals(target)) {
 			nonce ++;
