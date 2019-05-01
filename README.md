@@ -9,7 +9,7 @@ In this tutorial we will :
 
 - Block Rewards
 - Gas fee
-- Coinbase Account Transfer
+- Coinbase Account Payment
 
   
 ## Block Rewards
