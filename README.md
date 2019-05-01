@@ -12,4 +12,4 @@ Each tutorial is added as separate branch in this github repository. Following a
    
    * [Add Transactions, Genesis block and Accounts](https://github.com/mankenavenkatesh/CustomBlockchain/tree/2_Transactions_Accounts)   
 
-   * [Incentivize miners using transaction fee, block reward through Coinbase transaction](https://github.com/mankenavenkatesh/CustomBlockchain/tree/3_CoinbaseTransactions_Rewards_Fee)
+   * [Miner Incentivization - Coinbase transaction, transaction fee, block reward ](https://github.com/mankenavenkatesh/CustomBlockchain/tree/3_CoinbaseTransactions_Rewards_Fee)
