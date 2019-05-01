@@ -45,7 +45,7 @@ public class DummyChain
 		addBlock(genesis);        				
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
 
-		// copying accounts from previous block. Every block maintains accounts. This will be changed in later tutorials
+		// copying accounts from previous block. Every block maintains accounts. This will be changed in later tutorials to world(global) state.
 		System.out.println("Creating and Mining block1... ");
 		Block block1 = new Block(genesis.hash, (HashMap<PublicKey, Account>) genesis.accounts.clone());
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");

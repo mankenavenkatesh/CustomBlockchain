@@ -22,6 +22,7 @@ public class Block {
 	public Block( String prevBlockHash, HashMap<PublicKey, Account> accounts) {
 		this.prevBlockHash = prevBlockHash;		
 		this.timeStamp = new Date().getTime();
+		// copying accounts from previous block. Every block maintains accounts. This will be changed in later tutorials to world(global) state.
 		this.accounts = accounts;
 		this.hash = calculateHash();
 	}

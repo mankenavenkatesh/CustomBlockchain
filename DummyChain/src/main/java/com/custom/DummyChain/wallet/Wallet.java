@@ -31,10 +31,8 @@ public class Wallet {
 	}
 	
 	 //returns balance of this account
-		public float getBalance() {
-			
-	        return DummyChain.blockchain.get(DummyChain.blockchain.size()-1).accounts.get(publicKey).value; 
-			
+		public float getBalance() {			
+	        return DummyChain.blockchain.get(DummyChain.blockchain.size()-1).accounts.get(publicKey).value; 			
 		}
 		
 	
