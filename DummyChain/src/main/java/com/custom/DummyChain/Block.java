@@ -9,6 +9,7 @@ import com.custom.DummyChain.util.StringUtil;
 import com.custom.DummyChain.Account.*;
 import com.custom.DummyChain.Calculator.BlockRewardCalculator;
 import com.custom.DummyChain.Calculator.TransactionFeeCalculator;
+import com.custom.DummyChain.merkletree.MerkleTree;
 import com.custom.DummyChain.trasaction.*;
 
 
@@ -17,6 +18,7 @@ public class Block {
 	public String prevBlockHash;
 	public String hash;	
 	public Long timeStamp;
+	public String transactionMerkleRoot;
 	public int nonce;
 	public HashMap<PublicKey, Account> accounts = new HashMap<PublicKey, Account>();
 	public ArrayList<Transaction> transactions = new ArrayList<Transaction>();
@@ -34,7 +36,7 @@ public class Block {
 	
 	public String calculateHash() {
 		
-		String calculatedHash = StringUtil.applySHA256(prevBlockHash + Long.toString(timeStamp) + Integer.toString(nonce) + transactions.toString() + accounts.toString() + coinbase.toString());
+		String calculatedHash = StringUtil.applySHA256(prevBlockHash + Long.toString(timeStamp) + Integer.toString(nonce) + transactionMerkleRoot + accounts.toString() + coinbase.toString());
 		return calculatedHash;
 	}
 	
@@ -130,8 +132,23 @@ public class Block {
 		return true;
 	}
 	
+	public String getMerkleRoot(ArrayList<Transaction> transactions) {
+		if(transactions.size()==0) {
+			return null;
+		}
+		MerkleTree tree = new MerkleTree();
+	    ArrayList<String> hashList = new ArrayList<String>();
+	    for(Transaction transaction : transactions) {
+	    	hashList.add(transaction.transactionId);
+	    }
+	    tree.appendLeaves(hashList);
+        String rootHash = tree.buildTree();
+        return rootHash;
+	}
+	
 	public void mineBlock(int difficulty) {	
 		boolean rewardedSuccessfully = rewardCoinBase();
+		this.transactionMerkleRoot = getMerkleRoot(transactions);
 		if(!rewardedSuccessfully) {
 			System.out.println("Block Rewarding is not successful. Mining Stopped");
 		}
