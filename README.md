@@ -18,8 +18,13 @@ In this tutorial we will :
 **Solution -** 
  - Every mined block will have a block reward which is added to coinbase Accont as part of block mining.
  - This block reward is nothing but new Dummy Coins.
- - This block reward keep changing over a time period based on block height.
+ - This block reward keep reducing over a time period based on block height.
 
+#### Q. Why block reward keep reducing over time?
+**Solution -** 
+ - The reduction of block rewards serves the purpose of reducing inflation. 
+ - As the block reward decreases, the supply of new ETH coins in circulation will also decrease.
+ 
 
 #### Q. what if miner simply reward themselves excess of the block reward and total transaction fee?
 **Solution -** 

@@ -53,8 +53,7 @@ public class DummyChain
 		Block block1 = new Block(genesis.hash, (HashMap<PublicKey, Account>) genesis.accounts.clone(), coinbase.publicKey);
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
 		block1.addTransaction(walletA.sendFunds(walletB.publicKey, 40f));
-		addBlock(block1);
-		
+		addBlock(block1);		
 		System.out.println("\nCoinbase's balance is: " + coinbase.getBalance());		
 		System.out.println("\nWalletA's balance is: " + walletA.getBalance());		
 		System.out.println("\nWalletB's balance is: " + walletB.getBalance());	
