@@ -38,8 +38,25 @@ In this tutorial we will learn:
 - Moving from bottom to top, leaf nodes are grouped in pairs, their hash values ​​are joined together, and new hash values ​​are calculated again on this basis. The new hash forms a new tree node. This process is continually repeated until there is only one tree node called the root node. 
 - The hash of this root node is the only representative of the transaction data in the block, it will be saved to the block header and used to participate in the calculation of the POW system.
 
+#### Q. What if peer nodes in the network tampers transaction data? How will merkle tree will help? 
+**Solution -** 
+- The parent-to-child hashing process/structure described above results in a key property of Merkle Trees: they provides a means to prove the integrity and validity of your data.
+- For example, if we were to change the value of a data block, the entire path leading to the ‘root hash’ would also be changed. Therefore, if we hold the value of the root hash, we could verify the consistency of data by rebuilding the trie to get the root hash and then compare it with the root hash value in which we are holding. It is impossible to fake data without changing the value of the root.
+
 #### Q. How is transaction verifed by light nodes using merkle tree? 
 **Solution -** 
 - The advantage of the Merkle tree is that the node can verify the legitimacy of a transaction without downloading the entire block. 
 - To do this, you only need to trade Hash, Merkle tree root hash and Merkle paths.
 - 
+#### Merkle Trees | Beneficial Properties
+The key benefits of Merkle Trees consist of the following properties:
+- Data Consistency / Verification
+- Merkle Tree proofs are computationally easy and fast
+- Merkle Tree proofs require only a small chunks of data to be broadcasted across a network
+
+
+
+## WorldState merkle tree
+
+
+
