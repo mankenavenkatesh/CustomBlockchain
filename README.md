@@ -7,7 +7,7 @@ The aim of this tutorial series, is to help you build a picture of how one could
 
 In this tutorial we will :
 
-- Block Rewards
+- Merkle Trees
 - Gas fee
 - Coinbase Account Payment
 
