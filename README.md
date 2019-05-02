@@ -5,42 +5,41 @@ This is a test blockchain to learn and practice concepts of blockchain
 
 The aim of this tutorial series, is to help you build a picture of how one could develop blockchain technology.
 
-In this tutorial we will :
+In this tutorial we will learn:
 
 - Merkle Trees
-- Gas fee
-- Coinbase Account Payment
+- Transaction merkle tree
+- World State Merkle tree
 
   
-## Block Rewards
+## Merkle Tree
 
-#### Q. In a P2P network how are new DummyCoins Generated or mined?
+#### Q. In a P2P network will all nodes have all the blockchain data?
 **Solution -** 
- - Every mined block will have a block reward which is added to coinbase Accont as part of block mining.
- - This block reward is nothing but new Dummy Coins.
- - This block reward keep reducing over a time period based on block height.
-
-#### Q. Why block reward keep reducing over time?
-**Solution -** 
- - The reduction of block rewards serves the purpose of reducing inflation. 
- - As the block reward decreases, the supply of new ETH coins in circulation will also decrease.
+ - Each node participates in verifying and propagating transaction and block information, discovering and maintaining connections to peer nodes. A full node contains entire blockchain with all the data including transactions and storage.
+ - Considering no of blocks generated and huge no of transactions inside a block, It's is difficult for every node to maintain all the data.
+ - it is not realistic to have everyone run a complete node. 
  
-
-#### Q. what if miner simply reward themselves excess of the block reward and total transaction fee?
+    
+#### Q. If entire blockchain is not present, how will nodes verify the blocks?
 **Solution -** 
- - A miner that rewarded themselves incorrectly, would find that block being deemed invalid by other participants in the network.
- - Thus, that block would not be included in the blockchain and that miner would not be able to recoup the financial costs taken on during the proof of work mining process.
+- SPV - simple payment verification
+-  SPV is a lightweight nodes, it does not need to download all the data block chain, also does not require authentication and transaction data blocks . 
+- Conversely, when the SPV wants to verify the validity of a transaction, it retrieves some of the required data from the full node it is connected to. 
+- This mechanism ensures that multiple SPV light wallet nodes can be run in the case of only one full node.
+- In order to make SPV possible, there is a need to check whether a block contains a transaction without downloading the block data in full. 
+- This is where the Merkle Tree comes into play.
 
 
-## Transaction fee
-- Transaction fee is determined by the gas used * price per unit of gas.
-
-
-## Coinbase Account Transfer
-
-#### Q. In a P2P network how are miners incentivised for processing the blocks?
+## Transaction merkle tree
+#### Q. How is transaction merkle tree constructed? 
 **Solution -** 
- - when transaction is added to candidate block, transaction processor will process the transaction and transfer the transaction fee to the coinbase account stored as a field in the candidate block.
- - Once all transactions are added to the block, block will be mined. 
- - During mining proccess, block reward is added to the coinbase account. 
-- This is how miners get paid for the work done.
+- Each block constructs a Merkle Tree, which starts from the bottommost leaf node, and each transaction's hash is a leaf node (the dual SHA256 algorithm used in Bitcoin). The number of leaf nodes must be an even number, but not every block can contain even transaction data. If there are odd transaction data, the last transaction data will be copied (this only happens in the Merkle Tree, not in the block).
+- Moving from bottom to top, leaf nodes are grouped in pairs, their hash values ​​are joined together, and new hash values ​​are calculated again on this basis. The new hash forms a new tree node. This process is continually repeated until there is only one tree node called the root node. 
+- The hash of this root node is the only representative of the transaction data in the block, it will be saved to the block header and used to participate in the calculation of the POW system.
+
+#### Q. How is transaction verifed by light nodes using merkle tree? 
+**Solution -** 
+- The advantage of the Merkle tree is that the node can verify the legitimacy of a transaction without downloading the entire block. 
+- To do this, you only need to trade Hash, Merkle tree root hash and Merkle paths.
+- 
