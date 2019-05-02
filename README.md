@@ -57,6 +57,40 @@ The key benefits of Merkle Trees consist of the following properties:
 
 
 ## WorldState merkle tree
+#### Q. Before this tutorial, World state is present in each block. World state contains all user accounts.Now when miner mines the block and propagates the block, he has to send all the account information. How can we optimize this?
+
+**Solution -** 
+- We can use concept of merkle trees for the same. Instead of putting world state in the block, Put the world state outside the block and just add the merkle root to the block. 
+
+- This merkle root is the root of merkle tree created using all the account information after executing the transactions present in the block.
+
+- This reduces the size of block and optimizes the block propagation.
+
+ #### Q. This is all good. but still each block has a separate merkle tree holding all the world state. As number of accounts grows into millions, it becomes difficult to maintain merkle tree per block . How can we solve this?
+ **Solution -** 
+
+- Can we create single world state which contains all the accounts.
+- This world state is updated with account info after executing the transactions. 
+- We can create a merkle tree of updated world state and  take the merkle root and store it in the block. Once merkle root hash is added to block, delete the merkle tree. 
+- This will solve the problem of having separate merkle tree. There will be only one world state (Global state). The merkle root hash of latest block will represent the global world state merkle tree.
+- For the next block create, again process repeats.
+
+
+ #### Q. But as there is only one global state and one merkle tree, How will peer nodes validate previous blocks. To validate previous blocks, they need the instance of world state at the time when previous block was created?
+ **Solution -** 
+
+# Patricia Merkle Trees
+https://medium.com/shyft-network-media/understanding-trie-databases-in-ethereum-9f03d2c3325d
+
+
+
+
+
+
+
+
+
+
 
 
 
