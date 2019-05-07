@@ -1,4 +1,7 @@
 
+Medium Article
+https://medium.com/@mankenavenkatesh/dummychain-tutorial-1-ef7048f3df8f
+
 # CustomBlockchain
 
 This is a test blockchain to learn and practice concepts of blockchain
